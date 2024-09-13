@@ -1,0 +1,34 @@
+.Product_card_container{
+    width: 100%;
+        padding-top: 12vh;
+        height: 99vh;
+        border: solid black 1px;
+}
+
+.detailContainer{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        width: 100%;
+        height: auto;
+
+}
+.detail-image{
+    width: 50%;
+    border: solid black 1px;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+        align-items: center;
+
+}
+.detail-image img {
+    width: 80%;
+    height: 69vh;
+    border: solid black 1px;
+    justify-content: center;
+
+}
+.datail-otherDetailOfProduct{
+    width: 50%;
+}

@@ -1,0 +1,114 @@
+import { useEffect } from 'react'
+import './RandomProducts.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCategory, getRandomProducts } from '../../Slice/ProductSlice'
+import { useNavigate } from 'react-router-dom';
+
+const RandomProducts = () => {
+  const dispatch = useDispatch()
+  const fetchedProduct = useSelector((state) => state.productInfo.randomProducts || [])
+  const categories = useSelector((state) => state.productInfo.allCategories || [])
+  const navigate=useNavigate()
+
+  
+  useEffect(() => {
+    dispatch(getRandomProducts())
+   }, [dispatch])
+
+
+ 
+  
+
+  const categoryImages = categories.map(category => {
+  const product = fetchedProduct.find(product => product.category === category);
+     return {
+            category,
+            image: product ? product.thumbnail : null
+           };
+      });  
+
+  const handleSelectedProduct = (category) => {
+    dispatch(getCategory(category))
+    navigate(`/${category}`);
+
+  }
+  
+
+    
+  return (
+    <div className="Random-Products-Container">
+
+      <div className='catagory-div'>
+        {categoryImages.map((item, index) => (
+          <div className='catagory-items' key={index}  onClick={()=>handleSelectedProduct(item.category)}>
+            {item.image && <img src={item.image} alt={item.category} className='category-image' />}
+            <p>{item.category }</p>
+          </div>
+        ))}
+
+      </div>
+
+      <div className='sub-div'>
+         {fetchedProduct && fetchedProduct
+           .filter((product) => product.category === 'smartphones' || 'mens-shirts')
+           .slice(0, 5)
+           .map((product, index) => (
+            <div className='product-div' key={index}>
+                  <div  className="product-Items">
+                    <div className='image-box'>
+                       <img src={product.thumbnail} alt={product.title} className='product-image'/>
+                    </div>
+                    <h3 className='product-title'>{product.title}</h3>
+                    <p className='product-price'>₹.{product.price}</p>
+                    <p className='product-offer'>Min.{product.discountPercentage}% Off</p> 
+                  </div>
+            </div>
+          ))}
+      </div>
+      
+
+       <div className='sub-div'>
+         {fetchedProduct && fetchedProduct
+           .filter((product) => product.category === 'groceries' &&'kitchen-accessories')
+           .slice(0, 5)
+           .map((product, index) => (
+            <div className='product-div' key={index}>
+                  <div  className="product-Items">
+                      <div className='image-box'>
+                        <img src={product.thumbnail} alt={product.title} className='product-image'/>
+                      </div>
+                      <h3 className='product-title'>{product.title}</h3>
+                      <p className='product-price'>₹.{product.price}</p>
+                      <p className='product-offer'>Min.{product.discountPercentage}% Off</p> 
+                  </div>
+            </div>
+           ))}
+      
+      </div>
+      
+
+       <div className='sub-div'>
+         {fetchedProduct && fetchedProduct
+             .filter((product) => product.category === 'vehicle' && 'womens-shirts')
+             .slice(0, 5)
+             .map((product, index) => (
+            <div className='product-div' key={index}>
+                <div  className="product-Items">
+                    <div className='image-box'>
+                      <img src={product.thumbnail} alt={product.title} className='product-image'/>
+                    </div>
+                    <h3 className='product-title'>{product.title}</h3>
+                    <p className='product-price'>₹.{product.price}</p>
+                    <p className='product-offer'>Min.{product.discountPercentage}% Off</p> 
+                 </div>
+            </div>
+           ))}
+        </div>
+    </div>
+  )
+}
+
+export default RandomProducts
+
+
+
