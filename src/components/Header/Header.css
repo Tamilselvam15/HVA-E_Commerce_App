@@ -80,7 +80,7 @@
     /* border: solid black 1px; */
 }
 .cart-icon{
-        width: 25px;
+        width: 35px;
         height: 6vh;
         color: rgb(46, 45, 45);
 }
@@ -92,7 +92,23 @@
     align-items: center;
     justify-content: center;
     padding-left: 30px;
+    /* border: black 1px solid; */
+    position: relative;
 }
+.cart-items span{
+    position: absolute;
+    border: black 1px solid;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    z-index: 500;
+    border-radius: 50%;
+    color: aliceblue;
+    background-color: red;
+    left: 42px;
+    top: 5px;
+}
+
 .cart-items p{
     font-size: 20px;
     font-family:Arial,sans-serif;

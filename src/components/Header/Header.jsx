@@ -2,9 +2,20 @@ import { LuShoppingCart } from "react-icons/lu";
 import trendImage from "./images/hva.png";
 import { CiSearch } from "react-icons/ci";
 import './Header.css'
-const header = () => {
-
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+const Header = () => {
+    const[cartItems,setCartItems]=useState([])
+    const cartArray=useSelector((state)=>state.productInfo.cart)
+    console.log(cartItems)
+    useEffect(() => {
+        if (cartArray) {
+            setCartItems(
+               cartArray
+            )
+        }
+    
+     },[cartArray, cartItems])
   
 
 
@@ -23,6 +34,7 @@ const header = () => {
               <div className="header_frame2">
                   <div className="cart-items">
                       <LuShoppingCart className="cart-icon" />
+                      <span>{cartItems.length+1 }</span>
                       <p>Cart</p>
                   </div>
               
@@ -36,4 +48,4 @@ const header = () => {
   )
 }
 
-export default header
+export default Header

@@ -5,6 +5,7 @@ const initialState = {
     allCategories: [],
     randomProducts: [],
     viewCategory: [],
+    cart:[],
     productFullDetails:null,
     status: 'idle',
     error:null
@@ -14,7 +15,7 @@ export const getRandomProducts = createAsyncThunk(
       'product/getRandomProducts', 
        async () => {
           try {
-              const response = await axios.get('https://dummyjson.com/products?limit=190&skip=10')
+              const response = await axios.get('/api/products?limit=190&skip=10')
               return response.data.products.sort(() => Math.random() - 0.5);
           } catch (error) {
               console.log(`Error:${error}`)
@@ -31,10 +32,15 @@ const productSlice = createSlice({
             state.viewCategory = state.randomProducts.filter((product) => product.category === action.payload)
         },
         viewFullDetailsOfProduct: (state, action) => {
-            state.productFullDetails=state.randomProducts.find((product)=>product.id === action.payload)
-        }
+            state.productFullDetails = state.randomProducts.find((product) => product.id === action.payload)
+        },
+        AddToCart: (state, action) => {
+            const productExists = state.cart.find(item => item.id === action.payload.id);
+            if (!productExists) {
+                state.cart = [...state.cart, action.payload];
+            }
+        },
     },
-
        extraReducers: (builder)=>{
         builder
             
@@ -56,5 +62,5 @@ const productSlice = createSlice({
 }
 })
 
-export const {getCategory,viewFullDetailsOfProduct} = productSlice.actions;
+export const {getCategory,viewFullDetailsOfProduct,AddToCart} = productSlice.actions;
 export default productSlice.reducer;
