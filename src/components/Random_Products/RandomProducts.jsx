@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './RandomProducts.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategory, getRandomProducts } from '../../Slice/ProductSlice'
+import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from '../../Slice/ProductSlice'
 import { useNavigate } from 'react-router-dom';
 
 const RandomProducts = () => {
@@ -32,6 +32,12 @@ const RandomProducts = () => {
     navigate(`/${category}`);
 
   }
+
+  const handleViewFullDetails = (id,category) => {
+        console.log(id)
+        dispatch(viewFullDetailsOfProduct({id,category}))
+        navigate(`/${category}/${id}`)
+        }
   
 
     
@@ -50,11 +56,11 @@ const RandomProducts = () => {
 
       <div className='sub-div'>
          {fetchedProduct && fetchedProduct
-           .filter((product) => product.category === 'smartphones' || 'mens-shirts')
+           .filter((product) => product.category === 'smartphones' || product.category ==='mens-shirts')
            .slice(0, 5)
            .map((product, index) => (
             <div className='product-div' key={index}>
-                  <div  className="product-Items">
+                  <div  className="product-Items"onClick={()=>handleViewFullDetails(product.id,product.category)}>
                     <div className='image-box'>
                        <img src={product.thumbnail} alt={product.title} className='product-image'/>
                     </div>
@@ -69,11 +75,11 @@ const RandomProducts = () => {
 
        <div className='sub-div'>
          {fetchedProduct && fetchedProduct
-           .filter((product) => product.category === 'groceries' &&'kitchen-accessories')
+           .filter((product) => product.category === 'groceries' || product.category ==='kitchen-accessories')
            .slice(0, 5)
            .map((product, index) => (
             <div className='product-div' key={index}>
-                  <div  className="product-Items">
+                  <div  className="product-Items" onClick={()=>handleViewFullDetails(product.id,product.category)}>
                       <div className='image-box'>
                         <img src={product.thumbnail} alt={product.title} className='product-image'/>
                       </div>
@@ -89,11 +95,11 @@ const RandomProducts = () => {
 
        <div className='sub-div'>
          {fetchedProduct && fetchedProduct
-             .filter((product) => product.category === 'vehicle' && 'womens-shirts')
+             .filter((product) => product.category === 'mens-watches' ||  product.category === 'womens-shirts')
              .slice(0, 5)
              .map((product, index) => (
             <div className='product-div' key={index}>
-                <div  className="product-Items">
+                <div  className="product-Items" onClick={()=>handleViewFullDetails(product.id,product.category)}>
                     <div className='image-box'>
                       <img src={product.thumbnail} alt={product.title} className='product-image'/>
                     </div>

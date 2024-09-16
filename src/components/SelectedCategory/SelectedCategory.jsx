@@ -11,7 +11,8 @@ const SelectedCategory = () => {
     const selectedCategoryItems = useSelector((state) => state.productInfo.viewCategory)
     
 
-      useEffect(() => {
+    useEffect(() => {
+        
          dispatch(getCategory(category))
        }, [category, dispatch])
     
@@ -24,9 +25,9 @@ const SelectedCategory = () => {
   
   
      
-  const handleViewFullDetails = (id) => {
+  const handleViewFullDetails = (id,category) => {
         console.log(id)
-        dispatch(viewFullDetailsOfProduct(id))
+        dispatch(viewFullDetailsOfProduct({id,category}))
         navigate(`/${category}/${id}`)
         }
     
@@ -36,7 +37,7 @@ const SelectedCategory = () => {
           <div className="sub-container">
                {selectedCategory && selectedCategory.map((product, index) => (
                    <div className='category-div' key={index}>
-                            <div  className="category-Items" onClick={()=>handleViewFullDetails(product.id)}>
+                            <div  className="category-Items" onClick={()=>handleViewFullDetails(product.id,product.category)}>
                                     <div className='category-image-box'>
                                         <img src={product.thumbnail} alt={product.title} className='product-image'/>
                                     </div>

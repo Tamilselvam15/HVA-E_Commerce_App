@@ -34,7 +34,7 @@ const Header = () => {
               <div className="header_frame2">
                   <div className="cart-items">
                       <LuShoppingCart className="cart-icon" />
-                      <span>{cartItems.length+1 }</span>
+                      <span>{cartItems.length-1+1 }</span>
                       <p>Cart</p>
                   </div>
               

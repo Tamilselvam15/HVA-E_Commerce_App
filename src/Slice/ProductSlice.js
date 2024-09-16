@@ -32,7 +32,8 @@ const productSlice = createSlice({
             state.viewCategory = state.randomProducts.filter((product) => product.category === action.payload)
         },
         viewFullDetailsOfProduct: (state, action) => {
-            state.productFullDetails = state.randomProducts.find((product) => product.id === action.payload)
+            const { id, category } = action.payload
+            state.productFullDetails = state.randomProducts.find((product) => product.id ===id && product.category === category)
         },
         AddToCart: (state, action) => {
             const productExists = state.cart.find(item => item.id === action.payload.id);

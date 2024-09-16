@@ -7,17 +7,23 @@ import { IoStarSharp } from "react-icons/io5";
 
 import { AddToCart, viewFullDetailsOfProduct } from '../Slice/ProductSlice'
 const Product_card = () => {
-    const { id } = useParams()
-    const dispatch = useDispatch()
-    const fulldetails = useSelector((state) => state.productInfo.productFullDetails)
     const[description,setDescription]=useState('')
+    const { id,category } = useParams()
+    const dispatch = useDispatch()
+
+    const fulldetails = useSelector((state) => state.productInfo.productFullDetails)
+    const reviews = fulldetails.reviews || [];
+    const dimensions = fulldetails.dimensions || {};
+    const tags = fulldetails.tags || [];
+    const images = fulldetails.images || [];
+   
     console.log(fulldetails)
-    const{reviews,dimensions,tags,images}=fulldetails
     useEffect(() => {
         if (id) {
-            dispatch(viewFullDetailsOfProduct(Number(id)))
+            dispatch(viewFullDetailsOfProduct({id:Number(id),category}))
         }
-    }, [dispatch, id])
+    }, [category, dispatch, id])
+
 
     const handleDescription = (e) => {
         e.preventDefault()
@@ -59,7 +65,7 @@ const Product_card = () => {
                       </div>
 
 
-
+                    
                       <div className='datail-otherDetailOfProduct'>
                                 <p className='productDetail-title'>{fulldetails.title}</p>
                                 <div className='rating-reviews'>
@@ -84,8 +90,8 @@ const Product_card = () => {
                                 <div className='Delivery-Details-Container'>
                                     <h3>Delivery Deatails :</h3>
                                     <div className='shiping-warenty'>
-                                       <p>{fulldetails.shippingInformation}</p>
-                                       <p>{fulldetails.warrantyInformation }</p>
+                                       <li>{fulldetails.shippingInformation}</li>
+                                       <li>{fulldetails.warrantyInformation }</li>
                                     </div>
                                 </div>
 
