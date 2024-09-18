@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { getCategory, viewFullDetailsOfProduct } from "../../Slice/ProductSlice"
+import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from "../../Slice/ProductSlice"
 import './selectedCategory.css'
 const SelectedCategory = () => {
     const[selectedCategory,setSelectedCategory]=useState([])
     const { category } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const param=useParams()
+
     const selectedCategoryItems = useSelector((state) => state.productInfo.viewCategory)
     
+       useEffect(() => {
+           const fetchRandomProducts = async () => {
+               const result = await dispatch(getRandomProducts());
+               if (getRandomProducts.fulfilled.match(result)) {
+                   dispatch(getCategory(category));
+               }
+           };
+           fetchRandomProducts();
+       }, [category, dispatch, param]);
 
-    useEffect(() => {
-        
-         dispatch(getCategory(category))
-       }, [category, dispatch])
     
     
        useEffect(() => {

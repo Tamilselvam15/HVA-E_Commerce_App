@@ -2,18 +2,19 @@ import { useEffect } from 'react'
 import './RandomProducts.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from '../../Slice/ProductSlice'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const RandomProducts = () => {
   const dispatch = useDispatch()
   const fetchedProduct = useSelector((state) => state.productInfo.randomProducts || [])
   const categories = useSelector((state) => state.productInfo.allCategories || [])
-  const navigate=useNavigate()
+  const navigate = useNavigate()
+  const param=useParams()
 
   
   useEffect(() => {
     dispatch(getRandomProducts())
-   }, [dispatch])
+   }, [dispatch,param])
 
 
  

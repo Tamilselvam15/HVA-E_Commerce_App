@@ -2,11 +2,13 @@ import { LuShoppingCart } from "react-icons/lu";
 import trendImage from "./images/hva.png";
 import { CiSearch } from "react-icons/ci";
 import './Header.css'
+import {useNavigate} from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const Header = () => {
     const[cartItems,setCartItems]=useState([])
-    const cartArray=useSelector((state)=>state.productInfo.cart)
+    const cartArray = useSelector((state) => state.productInfo.cart)
+    const navigate=useNavigate()
     console.log(cartItems)
     useEffect(() => {
         if (cartArray) {
@@ -17,7 +19,9 @@ const Header = () => {
     
      },[cartArray, cartItems])
   
-
+    const handleviewCartItems = () => {
+        navigate('/cartItems') 
+     }
 
   return (
       <div className="head" >
@@ -32,7 +36,7 @@ const Header = () => {
           </div>
 
               <div className="header_frame2">
-                  <div className="cart-items">
+                  <div className="cart-items" onClick={()=>handleviewCartItems()}>
                       <LuShoppingCart className="cart-icon" />
                       <span>{cartItems.length-1+1 }</span>
                       <p>Cart</p>

@@ -5,7 +5,7 @@ const initialState = {
     allCategories: [],
     randomProducts: [],
     viewCategory: [],
-    cart:[],
+    cart: [],
     productFullDetails:null,
     status: 'idle',
     error:null
@@ -41,6 +41,9 @@ const productSlice = createSlice({
                 state.cart = [...state.cart, action.payload];
             }
         },
+        RemoveItemFromTheCart: (state, action) => {
+            state.cart = state.cart.filter(product => product.id !== action.payload)
+        },
     },
        extraReducers: (builder)=>{
         builder
@@ -63,5 +66,5 @@ const productSlice = createSlice({
 }
 })
 
-export const {getCategory,viewFullDetailsOfProduct,AddToCart} = productSlice.actions;
+export const {getCategory,viewFullDetailsOfProduct,AddToCart,RemoveItemFromTheCart} = productSlice.actions;
 export default productSlice.reducer;

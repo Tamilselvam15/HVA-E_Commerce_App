@@ -63,7 +63,7 @@
     border-radius: 7px;
     font-size: 17px;
     border: none;
-        font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: rgb(240, 240, 252);
     
 }
@@ -80,9 +80,9 @@
     /* border: solid black 1px; */
 }
 .cart-icon{
-        width: 35px;
-        height: 6vh;
-        color: rgb(46, 45, 45);
+    width: 35px;
+    height: 6vh;
+    color: rgb(46, 45, 45);
 }
 
 .cart-items{
@@ -97,16 +97,16 @@
 }
 .cart-items span{
     position: absolute;
-    border: black 1px solid;
-    width: 20px;
-    height: 20px;
+    /* border: black 1px solid; */
+    width: 16px;
+    height: 16px;
     text-align: center;
     z-index: 500;
     border-radius: 50%;
     color: aliceblue;
     background-color: red;
-    left: 42px;
-    top: 5px;
+    left: 40px;
+    top: 8px;
 }
 
 .cart-items p{
@@ -127,8 +127,8 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 .Admin_button:hover{
-width: 155px;
-height: 5.1vh;
+    width: 155px;
+    height: 5.1vh;
 }
 .Platform-name img{
     width: 100%;
