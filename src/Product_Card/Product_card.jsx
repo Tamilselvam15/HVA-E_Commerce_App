@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { LuShoppingCart } from "react-icons/lu";
 import { IoStarSharp } from "react-icons/io5";
+// import Header from '../../Header/Header'
+
 
 import { AddToCart, viewFullDetailsOfProduct } from '../Slice/ProductSlice'
+import Header from '../components/Header/Header';
 const Product_card = () => {
-    const[description,setDescription]=useState('')
-    const { id,category } = useParams()
+    const [description, setDescription] = useState('')
+    const { id, category } = useParams()
     const dispatch = useDispatch()
+    
 
     const fulldetails = useSelector((state) => state.productInfo.productFullDetails)
     const reviews = fulldetails.reviews || [];
@@ -19,10 +23,14 @@ const Product_card = () => {
    
     console.log(fulldetails)
     useEffect(() => {
-        if (id) {
-            dispatch(viewFullDetailsOfProduct({id:Number(id),category}))
+        if (id && category) {
+            dispatch(viewFullDetailsOfProduct({ id: Number(id), category }))
         }
     }, [category, dispatch, id])
+
+
+
+
 
 
     const handleDescription = (e) => {
@@ -40,7 +48,9 @@ const Product_card = () => {
         dispatch(AddToCart(CartProductDetails))
     }
 
-  return (
+    return (
+        <>
+        <Header/>  
       <div className='Product_card_container'>
           <div className='fullDetails-subContainer'>
               {fulldetails ? (
@@ -128,7 +138,8 @@ const Product_card = () => {
               
               
           </div>  
-      </div>
+            </div>
+            </>
   )
 }
 

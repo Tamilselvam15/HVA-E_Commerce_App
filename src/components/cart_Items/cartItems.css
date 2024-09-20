@@ -9,6 +9,46 @@
     height: 97vh;
     flex-direction: row;
     margin-right: auto;
+    position: relative;
+}
+.error-model{
+    position: absolute;
+    z-index: 1000;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    height: 25vh;
+    align-items: center;
+    justify-content: center;
+    top: 36vh;
+    left: 35%;
+    gap: 10px;
+    background-color: rgb(211, 213, 215);
+    border-radius: 5px;
+    box-shadow: 0px 2px 15px  rgb(24, 4, 4);
+    
+}
+.error-model h2,.error-model p{
+   width: auto; 
+   font-family: Arial, Helvetica, sans-serif;
+   color: rgb(14, 14, 121);
+}
+.error-model button{
+    width: 100px;
+    height: 4vh;
+    border-radius: 5px;
+    border-style: double;
+    background-color: white;
+    border-color: rgb(31, 31, 179);
+    border-width: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    
+}
+.empty-icon{
+    width: 50px;
+    height: 50px;
+    color: red;
 }
 
 
@@ -178,12 +218,14 @@
 .save-Button:hover{
     color: blue;
     font-size: 14px;
+    cursor: pointer;
     /* border: blue solid 1px;
     border-radius: 2px; */
 }
 .remove-Button:hover {
     color: red;
     font-size: 14px;
+    cursor: pointer;
     /* border: blue solid 1px;
     border-radius: 2px; */
 }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from "../../Slice/ProductSlice"
 import './selectedCategory.css'
+import Header from "../Header/Header"
 const SelectedCategory = () => {
     const[selectedCategory,setSelectedCategory]=useState([])
     const { category } = useParams()
@@ -40,6 +41,8 @@ const SelectedCategory = () => {
     
     
     return (
+        <>
+            <Header/>
       <div className="specific-category-container">
           <div className="sub-container">
                {selectedCategory && selectedCategory.map((product, index) => (
@@ -59,7 +62,8 @@ const SelectedCategory = () => {
                 
                 ))}
           </div>
-     </div>
+            </div>
+            </>
     )
     }
 

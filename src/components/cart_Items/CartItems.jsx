@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react'
 import './cartItems.css'
 import { GiCheckedShield } from "react-icons/gi";
 import { useDispatch, useSelector } from 'react-redux'
-import { RemoveItemFromTheCart } from '../../Slice/ProductSlice';
+import { OrederStore, RemoveItemFromTheCart } from '../../Slice/ProductSlice';
+import { useNavigate } from 'react-router-dom';
+import { MdOutlinePlaylistRemove } from "react-icons/md";
+
+import Header from '../Header/Header'
+
 const CartItems = () => {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
+    const navigate=useNavigate()
     const CartItems = useSelector((state) => state.productInfo.cart)
     const [toRenderCartItems, setToRenderCartItems] = useState([])
     const [price, setPrice] = useState(0)
     const [discount, setDiscount] = useState(0)
     const [buy, setBuy] = useState(0)
     const [allAmount, setAllAmount] = useState(0)
-    const[save,setSave]=useState(0)
+    const [save, setSave] = useState(0)
+    const [noItems,setNoItems]=useState(false)
     
     useEffect(() => {
         let Total = toRenderCartItems.reduce((acc, product) => acc + product.price, 0);
@@ -36,9 +43,29 @@ const CartItems = () => {
         dispatch(RemoveItemFromTheCart(id))
     }
 
-  return (
+    const handleOrder = (id) => {
+        if (toRenderCartItems.length > 0) {
+           dispatch(OrederStore(id))
+           navigate('/cartItems/Order')
+        }else{
+           setNoItems(true)
+        }
+       
+        
+
+    }
+
+    return (
+      <>
+            <Header/>
       <div className="cart-container">
-          
+                {noItems === true &&
+                    <div className='error-model'>
+                        <h2>No Items in this cart List..</h2>
+                        <MdOutlinePlaylistRemove className='empty-icon' /> 
+                        <p>Please add Your product To the Cart</p>
+                        <button onClick={() => setNoItems(false)}>ok</button>
+                    </div>}
                 <div className='left-sideOfCartPage'>
                    <div className='countOfCartItems'>
                        <p>HVA Shopping ({toRenderCartItems.length-1+1})</p>
@@ -75,7 +102,7 @@ const CartItems = () => {
                    
                   
                   <div className='cart-left-footer'>
-                      <button className='place-order-Button'>PLACE ORDER</button>
+                      <button className='place-order-Button' onClick={()=>handleOrder(toRenderCartItems)}>PLACE ORDER</button>
                   </div>
               </div>
               
@@ -106,7 +133,8 @@ const CartItems = () => {
 
           
           
-      </div>
+            </div>
+            </>
   )
 }
 

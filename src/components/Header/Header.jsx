@@ -32,8 +32,7 @@ const Header = () => {
               <div className="header_frame1">
               <CiSearch className="search-icon" />
               <input type="text" className="search-box" placeholder="Search for Products , Brands and More" />
-              
-          </div>
+               </div>
 
               <div className="header_frame2">
                   <div className="cart-items" onClick={()=>handleviewCartItems()}>

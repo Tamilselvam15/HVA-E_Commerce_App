@@ -3,6 +3,7 @@ import './RandomProducts.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from '../../Slice/ProductSlice'
 import { useNavigate, useParams } from 'react-router-dom';
+import Header from '../Header/Header'
 
 const RandomProducts = () => {
   const dispatch = useDispatch()
@@ -43,6 +44,8 @@ const RandomProducts = () => {
 
     
   return (
+    <>
+      <Header/>
     <div className="Random-Products-Container">
 
       <div className='catagory-div'>
@@ -111,7 +114,8 @@ const RandomProducts = () => {
             </div>
            ))}
         </div>
-    </div>
+      </div>
+      </>
   )
 }
 

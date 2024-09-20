@@ -65,8 +65,12 @@
     border: none;
     font-family: Arial, sans-serif;
     background-color: rgb(240, 240, 252);
-    
+   
 }
+.cart-items:hover{
+    cursor: pointer;
+}
+
 .search-box:focus{
     border: none;
     outline: none;
@@ -129,6 +133,7 @@
 .Admin_button:hover{
     width: 155px;
     height: 5.1vh;
+    cursor: pointer;
 }
 .Platform-name img{
     width: 100%;
