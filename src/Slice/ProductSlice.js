@@ -16,7 +16,7 @@ export const getRandomProducts = createAsyncThunk(
       'product/getRandomProducts', 
        async () => {
           try {
-              const response = await axios.get('/api/products?limit=190&skip=10')
+              const response = await axios.get('https://dummyjson.com/products?limit=190&skip=10')
               return response.data.products.sort(() => Math.random() - 0.5);
           } catch (error) {
               console.log(`Error:${error}`)
