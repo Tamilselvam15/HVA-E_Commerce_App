@@ -18,10 +18,10 @@ const CartItems = () => {
     const [buy, setBuy] = useState(0)
     const [allAmount, setAllAmount] = useState(0)
     const [save, setSave] = useState(0)
-    const [noItems,setNoItems]=useState(false)
+    const [noItems, setNoItems] = useState(false)
     
     useEffect(() => {
-        let Total = toRenderCartItems.reduce((acc, product) => acc + product.price, 0);
+        let Total = toRenderCartItems.reduce((acc, product) => acc + product.quantity*product.price, 0);
         let Discount = 10 / 100 * Total
         let buymore = 2 / 100 * discount
         let TotalOfAllTheAmount = Total - (discount + buymore)
@@ -32,10 +32,16 @@ const CartItems = () => {
         setAllAmount(TotalOfAllTheAmount)
         setSave(savedCost)
     }, [discount, toRenderCartItems])
+
+    //New Key and Values Are added..in the useEffect
     
     useEffect(() => {
-        if ( CartItems.length >= 0) {
-            setToRenderCartItems(CartItems)
+        if (CartItems.length >= 0) {
+            const updatedcartItems = CartItems.map((item) => ({
+                ...item,
+                quantity:1
+            }))
+            setToRenderCartItems(updatedcartItems)
         }
     }, [CartItems])
     
@@ -50,9 +56,12 @@ const CartItems = () => {
         }else{
            setNoItems(true)
         }
-       
-        
+    }
 
+    const handleUpdateQuantity = (index,value) => {
+        const updatedItems = [...toRenderCartItems]
+        updatedItems[index].quantity = value
+        setToRenderCartItems(updatedItems)
     }
 
     return (
@@ -82,12 +91,16 @@ const CartItems = () => {
                                     <h4>{ cartProduct.discountPercentage} % Offer</h4>
                                     <div className='stockDetailsofCart-Items'>
                                         <p>{cartProduct.availabilityStatus}</p>
-                                        <p>{cartProduct.stock} Only</p>
+                                        {/* <p>{cartProduct.stock} Only</p> */}
                                     </div>
                                     <p>{ cartProduct.shippingInformation}</p>
                                      <div className='save-remove'>
                                          <button className='save-Button'>Save For Later</button>
-                                         <button className='remove-Button' onClick={()=>handleRemove(cartProduct.id)}>Remove Item</button>
+                                        <button className='remove-Button' onClick={() => handleRemove(cartProduct.id)}>Remove Item</button>
+                                        <div className='quantity-div'>
+                                            <input type="number" className='quantity-input' placeholder='1' min="1" max="5" onChange={(e) => handleUpdateQuantity(index,e.target.value)} />
+                                            <span>Quantity</span>
+                                        </div>
                                      </div>
                                  </div>
                              </div>
@@ -112,14 +125,14 @@ const CartItems = () => {
            <div className='right-sideOfCartPage'>
                    <div className='summary-amountof_product'>
                        <h3>PRICE DETAILS</h3>
-                       <p className='order-pricedetails addspan'><span>Price({toRenderCartItems.length - 1 + 1} items)</span> <span className='pricing'>{price}</span></p>
-                       <p className='order-pricedetails addspan'><span>Discount</span><span className='offer'>-{discount.toFixed(2)}</span></p>
-                       <p className='order-pricedetails addspan'><span>Buy more & save more</span><span className='buy'>-{buy.toFixed(2) }</span></p>
-                       <p className='order-pricedetails addspan'><span>Coupons for you</span> <span className='coupens'>-</span></p>
+                       <p className='order-pricedetails addspan'><span>Price({toRenderCartItems.length - 1 + 1} items)</span> <span className='pricing'>{price.toFixed(2)}</span></p>
+                       <p className='order-pricedetails addspan'><span>Discount</span><span className='offer'>- {discount.toFixed(2)}</span></p>
+                       <p className='order-pricedetails addspan'><span>Buy more & save more</span><span className='buy'>- {buy.toFixed(2) }</span></p>
+                       <p className='order-pricedetails addspan'><span>Coupons for you</span> <span className='coupens'>- </span></p>
                        <p className='order-pricedetails addspan'><span>Delivery Charges</span> <span className='free'>Free</span></p>
-                       <p>-------------------------------------------------------------------------</p>
+                       <p className='line'>-------------------------------------------------------------------------</p>
                        <h2><span>Total Amount</span> <span className='allAmount'>{ allAmount.toFixed(2)}</span></h2>
-                       <p>-------------------------------------------------------------------------</p>
+                       <p className='line'>-------------------------------------------------------------------------</p>
                        <h4>You will save ₹{save.toFixed(2)} on this order</h4>
                      </div>
               

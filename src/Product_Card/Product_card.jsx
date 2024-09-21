@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { LuShoppingCart } from "react-icons/lu";
 import { IoStarSharp } from "react-icons/io5";
+import ClipLoader from 'react-spinners/ClipLoader';
+
 // import Header from '../../Header/Header'
 
 
-import { AddToCart, viewFullDetailsOfProduct } from '../Slice/ProductSlice'
+import { AddToCart, getRandomProducts, viewFullDetailsOfProduct } from '../Slice/ProductSlice'
 import Header from '../components/Header/Header';
 const Product_card = () => {
     const [description, setDescription] = useState('')
@@ -16,17 +18,29 @@ const Product_card = () => {
     
 
     const fulldetails = useSelector((state) => state.productInfo.productFullDetails)
-    const reviews = fulldetails.reviews || [];
-    const dimensions = fulldetails.dimensions || {};
-    const tags = fulldetails.tags || [];
-    const images = fulldetails.images || [];
+    const reviews = fulldetails?.reviews || [];
+    const dimensions = fulldetails?.dimensions || {};
+    const tags = fulldetails?.tags || [];
+    const images = fulldetails?.images || [];
    
     console.log(fulldetails)
     useEffect(() => {
-        if (id && category) {
-            dispatch(viewFullDetailsOfProduct({ id: Number(id), category }))
-        }
-    }, [category, dispatch, id])
+         async function fetchData() {
+           if (id && category) {
+             if (fulldetails && Object.keys(fulldetails).length > 0) {
+               dispatch(viewFullDetailsOfProduct({ id: Number(id), category }));
+             } else {
+               const response = await dispatch(getRandomProducts());
+               if (getRandomProducts.fulfilled.match(response)) {
+                 dispatch(viewFullDetailsOfProduct({ id: Number(id), category }));
+               }
+             }
+           }
+         }
+
+         fetchData(); 
+}, [category, dispatch, fulldetails, id]); 
+
 
 
 
@@ -129,9 +143,11 @@ const Product_card = () => {
                 </div>
                   
               ) : ( 
-                      <div className='nodata-tag'>
-                          <h1>No data Found</h1>
-                      </div>
+                            <div className='nodata-tag'>
+                              <ClipLoader color="#123abc"  size={50} />
+                              <h1>Your Data is Loading...</h1>
+                              <p>Until wait for few Minutes</p>
+                            </div>
                 )}
 
 

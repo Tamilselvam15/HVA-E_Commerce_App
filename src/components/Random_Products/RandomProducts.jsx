@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCategory, getRandomProducts, viewFullDetailsOfProduct } from '../../Slice/ProductSlice'
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../Header/Header'
+import ClipLoader from 'react-spinners/ClipLoader';
+
 
 const RandomProducts = () => {
   const dispatch = useDispatch()
@@ -45,8 +47,9 @@ const RandomProducts = () => {
     
   return (
     <>
-      <Header/>
-    <div className="Random-Products-Container">
+      <Header />
+      {fetchedProduct.length ? (
+      <div className="Random-Products-Container">
 
       <div className='catagory-div'>
         {categoryImages.map((item, index) => (
@@ -115,6 +118,14 @@ const RandomProducts = () => {
            ))}
         </div>
       </div>
+      ) : (
+          <div className='random-loading'>
+            <ClipLoader color="#123abc" size={50} className='loader' />
+            <p>Loading...</p>
+          </div>
+          
+      )}
+    
       </>
   )
 }

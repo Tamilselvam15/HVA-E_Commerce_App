@@ -280,10 +280,17 @@
     width: 100%;
     height:99vh;
     display: flex;
+    gap: 20px;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
 }
 
 .nodata-tag h1{
     color: blue;
+    width: auto;
+}
+.nodata-tag p{
+    width: auto;
+    color: red;
 }

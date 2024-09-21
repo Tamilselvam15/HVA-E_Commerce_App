@@ -123,6 +123,24 @@
     font-weight: 700;
         color: green;
 }
+.random-loading{
+    width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        height: 99vh;
+        
+}
+.loader{
+    width: 50%;
+    height: 40vh;
+    border: solid black;
+}
+.random-loading p{
+    width: auto;
+}
 
 
 

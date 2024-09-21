@@ -9,7 +9,7 @@ const Header = () => {
     const[cartItems,setCartItems]=useState([])
     const cartArray = useSelector((state) => state.productInfo.cart)
     const navigate=useNavigate()
-    console.log(cartItems)
+    // console.log(cartItems)
     useEffect(() => {
         if (cartArray) {
             setCartItems(

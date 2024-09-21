@@ -22,13 +22,15 @@ const Login = () => {
     if (username === 'tamil' && password === 'tamil') {
       sessionStorage.setItem('auth', 'true');
       const login = Date.now()
-      const expired=login+1000*60*5
+      const expired=login+1000*60*20
       sessionStorage.setItem('loginTime', login)
       sessionStorage.setItem('expiryTime',expired)
       navigate('/');
 
     } else {
       alert('Invalid username or password');
+      setUsername('')
+      setPassword('')
     } 
   };
 
