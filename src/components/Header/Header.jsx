@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 const Header = () => {
     const[cartItems,setCartItems]=useState([])
     const cartArray = useSelector((state) => state.productInfo.cart)
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+    // const param=useParams()
     // console.log(cartItems)
     useEffect(() => {
         if (cartArray) {
@@ -21,7 +22,10 @@ const Header = () => {
   
     const handleviewCartItems = () => {
         navigate('/cartItems') 
-     }
+    }
+    const handleGotoOrder = () => {
+        navigate('/Order')
+    }
 
   return (
       <div className="head" >
@@ -40,7 +44,7 @@ const Header = () => {
                       <span>{cartItems.length-1+1 }</span>
                       <p>Cart</p>
                   </div>
-              
+               <button className="My-Order-Button" onClick={()=>handleGotoOrder()}>My Orders</button><br />
                <button className="Admin_button">Admin</button>
           </div>
           

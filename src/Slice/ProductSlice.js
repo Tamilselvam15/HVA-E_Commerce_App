@@ -7,7 +7,8 @@ const initialState = {
     viewCategory: [],
     cart: [],
     ordersummary:[],
-    productFullDetails:null,
+    productFullDetails: null,
+    // TotalAmount:[],
     status: 'idle',
     error:null
 }
@@ -46,10 +47,13 @@ const productSlice = createSlice({
             state.cart = state.cart.filter(product => product.id !== action.payload)
         },
         OrederStore: (state, action) => {
-            state.ordersummary = [...state.ordersummary,...action.payload]
+            state.ordersummary = [...state.ordersummary,[...action.payload]]
             const productIds=action.payload.map(order=>order.id)
             state.cart = state.cart.filter(product => !productIds.includes(product.id));
         },
+        // TotalOftheOrderedAmount: (state, action) => {
+        //     state.TotalAmount=[...state.TotalAmount,...action.payload]
+        // }
     },
        extraReducers: (builder)=>{
         builder

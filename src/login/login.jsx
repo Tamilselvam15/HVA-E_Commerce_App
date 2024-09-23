@@ -22,7 +22,7 @@ const Login = () => {
     if (username === 'tamil' && password === 'tamil') {
       sessionStorage.setItem('auth', 'true');
       const login = Date.now()
-      const expired=login+1000*60*20
+      const expired=login+1000*60*60
       sessionStorage.setItem('loginTime', login)
       sessionStorage.setItem('expiryTime',expired)
       navigate('/');

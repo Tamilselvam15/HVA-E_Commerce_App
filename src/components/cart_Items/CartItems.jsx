@@ -33,13 +33,16 @@ const CartItems = () => {
         setSave(savedCost)
     }, [discount, toRenderCartItems])
 
+    //get time and date
+  
+
     //New Key and Values Are added..in the useEffect
     
     useEffect(() => {
         if (CartItems.length >= 0) {
             const updatedcartItems = CartItems.map((item) => ({
                 ...item,
-                quantity:1
+                quantity: 1,
             }))
             setToRenderCartItems(updatedcartItems)
         }
@@ -49,10 +52,11 @@ const CartItems = () => {
         dispatch(RemoveItemFromTheCart(id))
     }
 
-    const handleOrder = (id) => {
+    const handleOrder = (collectionOfProduct) => {
         if (toRenderCartItems.length > 0) {
-           dispatch(OrederStore(id))
-           navigate('/cartItems/Order')
+            dispatch(OrederStore(collectionOfProduct))
+            navigate('/cartItems/Order')
+            
         }else{
            setNoItems(true)
         }

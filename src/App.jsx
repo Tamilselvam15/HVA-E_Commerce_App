@@ -20,6 +20,7 @@ function App() {
           <Route path="/:category/:id" element={<Product_card />} />
           <Route path="/cartItems" element={<CartItems />} />
           <Route path="/cartItems/Order" element={<Order />} />
+          <Route path='/Order' element={<Order/> } />
         </Route>
       </Routes>
 
