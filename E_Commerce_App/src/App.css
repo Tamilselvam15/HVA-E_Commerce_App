@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+}
+
+.conatiner{
+  position: relative;
+  -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-right: auto;
+}
