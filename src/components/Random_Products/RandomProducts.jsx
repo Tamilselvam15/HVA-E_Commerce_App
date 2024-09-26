@@ -10,6 +10,8 @@ import ClipLoader from 'react-spinners/ClipLoader';
 const RandomProducts = () => {
   const dispatch = useDispatch()
   const fetchedProduct = useSelector((state) => state.productInfo.randomProducts || [])
+  const searched = useSelector((state) => state.productInfo.searching || [])
+  console.log(searched)
   const categories = useSelector((state) => state.productInfo.allCategories || [])
   const navigate = useNavigate()
   const param=useParams()
@@ -48,7 +50,26 @@ const RandomProducts = () => {
   return (
     <>
       <Header />
-      {fetchedProduct.length ? (
+      {searched.length > 0 ? (
+         <div className='searched-Items'>
+         {searched. map((product, index) => (
+            <div className='searched-div' key={index}>
+                  <div  className="product-Items"onClick={()=>handleViewFullDetails(product.id,product.category)}>
+                    <div className='image-box'>
+                       <img src={product.thumbnail} alt={product.title} className='product-image'/>
+                    </div>
+                    <h3 className='product-title'>{product.title}</h3>
+                    <p className='product-price'>₹.{product.price}</p>
+                    <p className='product-offer'>Min.{product.discountPercentage}% Off</p> 
+                  </div>
+            </div>
+           
+          
+          ))}
+        </div>
+        
+      ): (
+          fetchedProduct.length ? (
       <div className="Random-Products-Container">
 
       <div className='catagory-div'>
@@ -123,6 +144,8 @@ const RandomProducts = () => {
             <ClipLoader color="#123abc" size={50} className='loader' />
             <p>Loading...</p>
           </div>
+          
+      )
           
       )}
     

@@ -8,7 +8,7 @@ const initialState = {
     cart: [],
     ordersummary:[],
     productFullDetails: null,
-    // TotalAmount:[],
+    searching:null,
     status: 'idle',
     error:null
 }
@@ -51,9 +51,17 @@ const productSlice = createSlice({
             const productIds=action.payload.map(order=>order.id)
             state.cart = state.cart.filter(product => !productIds.includes(product.id));
         },
-        // TotalOftheOrderedAmount: (state, action) => {
-        //     state.TotalAmount=[...state.TotalAmount,...action.payload]
-        // }
+        searchProductByName: (state, action) => {
+            const searchTerm = action.payload.toLowerCase();
+           if (searchTerm.trim() === '') {
+             state.searching = [];
+           } else {
+                state.searching = state.randomProducts.filter(product =>
+                product.title.toLowerCase().includes(searchTerm)
+           );
+    }
+    },
+       
     },
        extraReducers: (builder)=>{
         builder
@@ -76,5 +84,5 @@ const productSlice = createSlice({
 }
 })
 
-export const {getCategory,viewFullDetailsOfProduct,AddToCart,RemoveItemFromTheCart,OrederStore} = productSlice.actions;
+export const {getCategory,viewFullDetailsOfProduct,AddToCart,RemoveItemFromTheCart,OrederStore,searchProductByName} = productSlice.actions;
 export default productSlice.reducer;

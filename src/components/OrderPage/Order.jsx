@@ -150,8 +150,8 @@ const Order = () => {
 
                     ) : (
                       
-                       <div>
-                           No orders
+                       <div className='no-oreders' >
+                          <h1>No Oreders...</h1>
                        </div>
                 )}
           </div>

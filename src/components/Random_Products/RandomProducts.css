@@ -13,6 +13,33 @@
     margin-right: auto;
     
 }
+
+.searched-Items {
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
+    margin-top: 12vh;
+    margin-left: auto;
+    margin-right: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.searched-div {
+    width: auto;
+    height: auto;
+    /* border: solid black; */
+    display: flex;
+    background-color: rgb(248, 250, 251);
+    box-shadow: 0px 1px 1px 1px rgb(228, 226, 226);
+    border-radius: 3px;
+}
+
+.searched-Items::-webkit-scrollbar {
+    display: none;
+}
+
 .sub-div{
         width: 95%;
         height: 42vh;

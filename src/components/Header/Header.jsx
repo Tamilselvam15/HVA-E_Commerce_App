@@ -4,11 +4,13 @@ import { CiSearch } from "react-icons/ci";
 import './Header.css'
 import {useNavigate} from 'react-router-dom'
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProductByName } from "../../Slice/ProductSlice";
 const Header = () => {
     const[cartItems,setCartItems]=useState([])
     const cartArray = useSelector((state) => state.productInfo.cart)
     const navigate = useNavigate()
+    const dispatch=useDispatch()
     // const param=useParams()
     // console.log(cartItems)
     useEffect(() => {
@@ -26,6 +28,10 @@ const Header = () => {
     const handleGotoOrder = () => {
         navigate('/Order')
     }
+    const handleNewSearch = (searchTerm) => {
+        dispatch(searchProductByName(searchTerm))
+        
+    }
 
   return (
       <div className="head" >
@@ -35,7 +41,7 @@ const Header = () => {
           </div>
               <div className="header_frame1">
               <CiSearch className="search-icon" />
-              <input type="text" className="search-box" placeholder="Search for Products , Brands and More" />
+              <input type="text" className="search-box" placeholder="Search for Products , Brands and More" onChange={(e)=>handleNewSearch(e.target.value)}/>
                </div>
 
               <div className="header_frame2">
