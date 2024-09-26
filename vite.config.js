@@ -7,13 +7,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base:'/HVA-E_Commerce_App',
   plugins: [react()],
-   server: {
-    proxy: {
-      '/api': {
-        target: 'https://dummyjson.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
+  //  server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'https://dummyjson.com',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, ''),
+  //     },
+  //   },
+  // },
 })
