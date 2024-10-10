@@ -16,7 +16,7 @@ function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<RandomProducts />} />
-         <Route path="/:category" element={<SelectedCategory />} />
+          <Route path="/:category" element={<SelectedCategory />} />
           <Route path="/:category/:id" element={<Product_card />} />
           <Route path="/cartItems" element={<CartItems />} />
           <Route path="/cartItems/Order" element={<Order />} />

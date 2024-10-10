@@ -11,7 +11,6 @@ const RandomProducts = () => {
   const dispatch = useDispatch()
   const fetchedProduct = useSelector((state) => state.productInfo.randomProducts || [])
   const searched = useSelector((state) => state.productInfo.searching || [])
-  console.log(searched)
   const categories = useSelector((state) => state.productInfo.allCategories || [])
   const navigate = useNavigate()
   const param=useParams()
