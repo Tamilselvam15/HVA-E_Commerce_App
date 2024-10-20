@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const { productRouter } = require('./src/Routers/ProductRouter');
+const { cartRouter } = require('./src/Routers/cartRouter');
+
 const { connectDb, appendDataToDatabase } = require('./importData/ConnectionWithDb');
 
 // Load environment variables
@@ -18,8 +20,9 @@ app.use(cors({
 app.use(express.json());
 
 // Product routes
-app.use('/randomProducts', productRouter);
-
+app.use('/randomProducts', productRouter)
+app.use('/cart', cartRouter)
+app.use('/orders',orderRouter)
 
 
 //  connect to the database and start the server
@@ -28,7 +31,7 @@ const startServer = async () => {
     await connectDb();
     await appendDataToDatabase();
     app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}/randomProducts/Products`);
+    console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error('Failed to start the server:', error);

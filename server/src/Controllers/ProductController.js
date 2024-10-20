@@ -1,23 +1,21 @@
-const { ProductService } = require("../Services/ProductService");
-
+const  ProductService  = require("../Services/ProductService");
 
 //get Product Controller
 const getProducts = async (req, res, next) => {
     try{
-        const products = await ProductService.getAll()
+        const products = await ProductService.getAllProductsFromDB()
         return res.status(200).json(products);
     } catch (err) {
         next(err);
-    }
-    
-   
+    } 
 }
 
 //read Product Controller
 const readProduct = async (req, res, next) => {
-    const {id}=req.params.id
+    const Id = req.params.id;
+    console.log(Id)
     try {
-        const ProductDetails = await ProductService.readDetailsOfProduct(id)
+        const ProductDetails = await ProductService.readDetailsOfProduct(Id)
         return res.status(200).json(ProductDetails)
     } catch (err) {
         next(new Error('cannot Read the product Detail'+err))
@@ -60,4 +58,20 @@ const modifyProduct = async (req, res, next) => {
     }
 }
 
-module.exports = {getProducts,addNewProduct,modifyProduct,readProduct}
+//remove Product
+const deleteProduct = (req,res,next) => {
+    const { id } = req.params;
+    try {
+        const deletedProduct = ProductService.delete(id)
+        if (!deleteProduct) {
+            return res.status(404).json({message:'the product is not found'})
+        }
+        return res.status(200).json(deleteProduct)
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+
+module.exports = {getProducts,addNewProduct,modifyProduct,readProduct,deleteProduct}
