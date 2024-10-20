@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const { productRouter } = require('./src/Routers/ProductRouter');
 const { cartRouter } = require('./src/Routers/cartRouter');
-
 const { connectDb, appendDataToDatabase } = require('./importData/ConnectionWithDb');
+const { orderRouter } = require('./src/Routers/orderRouter');
 
 // Load environment variables
 dotenv.config();
