@@ -6,7 +6,7 @@ const cartRouter = express.Router()
 
 cartRouter.get('/cartItems', getCartItem)
 cartRouter.post('/addToCart', setCartItems)
-cartRouter.post('/removeFromCart',deleteCart)
+cartRouter.delete('/removeFromCart',deleteCart)
 
 
 module.exports ={cartRouter}

@@ -4,10 +4,10 @@ const productRouter = express.Router()
 
 //routes for product
 productRouter.get('/Products', getProducts)
-productRouter.get('/product/:id',readProduct)
-productRouter.post('/product/addProduct', addNewProduct)
-productRouter.put('/product/updateProduct', modifyProduct)
-productRouter.delete('/deleteProduct/:id',deleteProduct)
+productRouter.get('/:id',readProduct)
+productRouter.post('/addProduct', addNewProduct)
+productRouter.patch('/updateProduct', modifyProduct)
+productRouter.delete('/:id',deleteProduct)
 
 
 

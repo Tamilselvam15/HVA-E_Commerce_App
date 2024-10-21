@@ -13,9 +13,10 @@ const getProducts = async (req, res, next) => {
 //read Product Controller
 const readProduct = async (req, res, next) => {
     const Id = req.params.id;
-    console.log(Id)
+    console.log(`Received request for product ID: ${Id}`);
+    console.log(typeof(Id))
     try {
-        const ProductDetails = await ProductService.readDetailsOfProduct(Id)
+        const ProductDetails = await ProductService.readDetailsOfProduct(Number(Id))
         return res.status(200).json(ProductDetails)
     } catch (err) {
         next(new Error('cannot Read the product Detail'+err))
@@ -33,12 +34,13 @@ const addNewProduct = async (req, res, next) => {
             availabilityStatus,returnPolicy,minimumOrderQuantity,images,thumbnail
         } = req.body
 
-        const newProduct = await ProductService.addProduct({ 
+        const newProduct =await ProductService.addProduct(
             id,title, description, category, price, discountPercentage, rating, stock,
             tags, sku, weight, dimensions, warrantyInformation, shippingInformation,
             availabilityStatus,returnPolicy,minimumOrderQuantity,images,thumbnail
-        });
-        res.status(201).json(newProduct);
+        );
+       
+        return res.status(201).json(newProduct);
     } catch (err) {
         next(err)
     }
@@ -46,27 +48,30 @@ const addNewProduct = async (req, res, next) => {
 
 //updateProduct contoller
 const modifyProduct = async (req, res, next) => {
-    const {productId,updatedData} = req.body
+    const { id } = req.body; 
+    const updatedData = { ...req.body }; 
+    delete updatedData.id;
+
     try {
-        const updatedProduct = ProductService.updateProduct(productId, updatedData)
+        const updatedProduct = await ProductService.updateProductToDB(id, updatedData); 
         if (!updatedProduct) {
-           return res.status(404).json({message:'meaasge Not Found'})
+            return res.status(404).json({ message: 'Product Not Found' });
         }
         return res.status(200).json(updatedProduct);
     } catch (err) {
-        next( new Error('Error update product'+err.message))
+        next(new Error('Error updating product: ' + err.message));
     }
-}
+};
 
 //remove Product
 const deleteProduct = (req,res,next) => {
     const { id } = req.params;
     try {
-        const deletedProduct = ProductService.delete(id)
-        if (!deleteProduct) {
+        const deletedProduct = ProductService.delete(Number(id))
+        if (!deletedProduct) {
             return res.status(404).json({message:'the product is not found'})
         }
-        return res.status(200).json(deleteProduct)
+        return res.status(200).json(deletedProduct)
     } catch (err) {
         next(err)
     }

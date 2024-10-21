@@ -3,7 +3,7 @@ const orderService = require("../Services/orderService")
 //get all oreder from database
 const getAllOrder =async (req, res, next) => {
     try {
-        const orders = await orderService.getallorderfromDB()
+        const orders = await orderService.getallOrderfromDB()
         if (!orders || orderService.length === 0) {
             return res.status(404).json({message:'Not Found the order Items'})
         }
@@ -29,9 +29,9 @@ const addOrder = async (req, res, next) => {
 
 const getOrderById = async(req,res,next) => {
     try {
-        const { userId } = req.body
-        const searchedOrders = await orderService.getOrderById()
-        if (!searchedOrders || searchedOrders.length > 0) {
+        const { userId } = req.params
+        const searchedOrders = await orderService.viewOrderDetailsFromDB(userId)
+        if (!searchedOrders || searchedOrders.length === 0) {
             return res.status(404).json({message:'not fond the user or userOrder'})
         }
         return res.status(200).json(searchedOrders)
@@ -44,8 +44,8 @@ const getOrderById = async(req,res,next) => {
 //romove the order frome the database
 const removeOrder =async(req, res, next) => {
     try {
-        const {userId,productId } = req.body
-        const removedItem = await orderService.removeOrderFromDB(userId,productId)
+        const {productId,userId } = req.body
+        const removedItem = await orderService.removeOrderFromDB(productId,userId)
         if (!removedItem) {
             return res.status(404).json({message:'the order is not found'})
         }

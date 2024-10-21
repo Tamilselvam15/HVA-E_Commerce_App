@@ -4,9 +4,9 @@ const orderRouter = express.Router()
 
 //routes for order
 
-app.get('/allOrder', getAllOrder)
-app.post('/pushOrder', addOrder)
-app.get('/:userId/items', getOrderById)
-app.post('/removeOrder', removeOrder)
+orderRouter.get('/allOrder', getAllOrder)
+orderRouter.post('/pushOrder', addOrder)
+orderRouter.get('/:userId', getOrderById)
+orderRouter.delete('/removeOrder', removeOrder)
 
 module.exports={orderRouter}

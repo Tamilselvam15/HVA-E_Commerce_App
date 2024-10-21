@@ -1,5 +1,6 @@
 const Order = require("../Models/orderModel")
 
+
 const orderService = {
     //get all order service
     getallOrderfromDB: async() => {
@@ -19,8 +20,8 @@ const orderService = {
     //add new order to database
     addnewOrderToDB: async(productId,userId,price,orderDate) => {
         try {
-            const newOrder = new Order(productId, userId, price, orderDate)
-            return await Order.save()
+            const newOrder = new Order({ productId: productId, userId:userId, price:price, orderDate:orderDate })
+            return await newOrder.save()
         } catch (err) {
             throw new Error('Error add order Items :' + err.message)
         }
@@ -30,7 +31,7 @@ const orderService = {
     //view order by id
     viewOrderDetailsFromDB:async (userId) => {
         try {
-            const orderDetail = await Order.findById(userId)
+            const orderDetail = await Order.find({userId:userId})
             if (!orderDetail) {
                 return 'cannot find the order details'
             }
@@ -42,9 +43,9 @@ const orderService = {
 
 
     //remove order by userid
-    removeOrderFromDB: async(userId,productId) => {
+    removeOrderFromDB: async(productId,userId) => {
         try {
-            const removeOrder = await Order.findByIdAndDelete(userId,productId)
+            const removeOrder = await Order.findOneAndDelete({userId:userId,productId:productId})
             if (!removeOrder) {
                 return 
             }

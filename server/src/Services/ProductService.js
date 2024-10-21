@@ -21,10 +21,10 @@ const ProductService = {
     //readService
     readDetailsOfProduct: async (id) => {
        try {
-          const findProductDetail = await Product.findById(id)
+          const findProductDetail = await Product.findOne({id:id})
           console.log(findProductDetail)
           if (!findProductDetail) {
-              return "cannot read the details of the product"
+              throw new Error("Product not found");
           }
           return findProductDetail
         } catch (err) {
@@ -34,9 +34,24 @@ const ProductService = {
       
 
     //addService
-    addProduct: async (productData) => {
+    addProduct: async (
+            id,title, description, category, price, discountPercentage, rating, stock,
+            tags, sku, weight, dimensions, warrantyInformation, shippingInformation,
+            availabilityStatus,returnPolicy,minimumOrderQuantity,images,thumbnail
+    ) => {
+        
         try {
-            const newProduct = new Product(productData)
+            const newProduct = new Product(
+                {
+                    id: id, title: title, description: description, category: category, price: price,
+                    discountPercentage: discountPercentage, rating: rating, stock: stock,
+                    tags: tags, sku: sku, weight: weight, dimensions: dimensions,
+                    warrantyInformation: warrantyInformation,
+                    shippingInformation: shippingInformation,
+                    availabilityStatus: availabilityStatus, returnPolicy: returnPolicy,
+                    minimumOrderQuantity: minimumOrderQuantity, images: images, thumbnail: thumbnail
+                }
+            )
             return await newProduct.save()
         } catch (err) {
             throw new Error('Error product saving to the database :',err.message)
@@ -44,13 +59,16 @@ const ProductService = {
     },
 
     //update Product service
-    updateProductToDB : async (ProductId, updatedData) => {
+    updateProductToDB: async (id,updatedData) => {
         try {
-            const newUpdateProduct = Product.findByIdAndUpdate(ProductId, updatedData, { new: true })
+            const newUpdateProduct = await Product.findOneAndUpdate(
+                { id: id },
+                { $set: updatedData },
+                 { new: true })
             if (!newUpdateProduct) {
                 return null
             }
-            return updateProductToDB
+            return newUpdateProduct
         } catch (err) {
             throw new Error('Error updating product: ' + err.message);
         }  
@@ -60,9 +78,9 @@ const ProductService = {
     //delete Service
     delete: async (ProductId) => {
         try {
-            const remainingProduct = Product.findByIdAndDelete(ProductId)
+            const remainingProduct = Product.findOneAndDelete({id:ProductId})
             if (!remainingProduct) {
-                return
+                return null
             }
             return remainingProduct
         } catch (err) {
