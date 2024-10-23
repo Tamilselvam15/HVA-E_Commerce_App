@@ -20,7 +20,7 @@ app.use(cors({
 app.use(express.json());
 
 // Product routes
-app.use('/randomProducts', productRouter)
+app.use('/', productRouter)
 app.use('/cart', cartRouter)
 app.use('/orders',orderRouter)
 

@@ -1,5 +1,7 @@
 // const ProductDatabase = require('../DataBase/ProductDatabase')
 const Product = require('../Models/productModel')
+const mongoose = require('mongoose');
+
 
 const ProductService = {
 
@@ -21,7 +23,7 @@ const ProductService = {
     //readService
     readDetailsOfProduct: async (id) => {
        try {
-          const findProductDetail = await Product.findOne({id:id})
+          const findProductDetail = await Product.findOne({_id:id})
           console.log(findProductDetail)
           if (!findProductDetail) {
               throw new Error("Product not found");
@@ -61,8 +63,9 @@ const ProductService = {
     //update Product service
     updateProductToDB: async (id,updatedData) => {
         try {
+            const objectId =new mongoose.Types.ObjectId(id)
             const newUpdateProduct = await Product.findOneAndUpdate(
-                { id: id },
+                { _id:objectId  },
                 { $set: updatedData },
                  { new: true })
             if (!newUpdateProduct) {
@@ -78,7 +81,7 @@ const ProductService = {
     //delete Service
     delete: async (ProductId) => {
         try {
-            const remainingProduct = Product.findOneAndDelete({id:ProductId})
+            const remainingProduct = Product.findOneAndDelete({_id:ProductId})
             if (!remainingProduct) {
                 return null
             }

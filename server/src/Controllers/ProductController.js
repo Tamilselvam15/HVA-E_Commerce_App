@@ -12,11 +12,11 @@ const getProducts = async (req, res, next) => {
 
 //read Product Controller
 const readProduct = async (req, res, next) => {
-    const Id = req.params.id;
+    const Id = req.params._id;
     console.log(`Received request for product ID: ${Id}`);
     console.log(typeof(Id))
     try {
-        const ProductDetails = await ProductService.readDetailsOfProduct(Number(Id))
+        const ProductDetails = await ProductService.readDetailsOfProduct(Id)
         return res.status(200).json(ProductDetails)
     } catch (err) {
         next(new Error('cannot Read the product Detail'+err))
@@ -48,12 +48,14 @@ const addNewProduct = async (req, res, next) => {
 
 //updateProduct contoller
 const modifyProduct = async (req, res, next) => {
-    const { id } = req.body; 
-    const updatedData = { ...req.body }; 
-    delete updatedData.id;
+    const id = req.params._id; 
+    const updatedData = {...req.body}; 
+    console.log(id)
+    console.log(updatedData)
 
     try {
         const updatedProduct = await ProductService.updateProductToDB(id, updatedData); 
+        console.log(updatedProduct)
         if (!updatedProduct) {
             return res.status(404).json({ message: 'Product Not Found' });
         }
@@ -65,13 +67,14 @@ const modifyProduct = async (req, res, next) => {
 
 //remove Product
 const deleteProduct = (req,res,next) => {
-    const { id } = req.params;
+    const  id  = req.params._id;
+    console.log(id)
     try {
-        const deletedProduct = ProductService.delete(Number(id))
+        const deletedProduct = ProductService.delete(id)
         if (!deletedProduct) {
             return res.status(404).json({message:'the product is not found'})
         }
-        return res.status(200).json(deletedProduct)
+        return res.status(200).json({message:'Successfully deleted the Item'})
     } catch (err) {
         next(err)
     }
